@@ -44,32 +44,6 @@ poly = PolynomialFeatures(degree=2)
 X_train_poly = poly.fit_transform(X_train)
 X_test_poly = poly.transform(X_test)
 
-def sigmoid(z):
-    return 1 / (1 + np.exp(-z))
-
-def cost_function(X, y, theta):
-    m = len(y)
-    h = sigmoid(X @ theta)
-    epsilon = 1e-5
-    cost = (1/m)*(((-y).T @ np.log(h + epsilon))-((1-y).T @ np.log(1-h + epsilon)))
-    return cost
-
-def gradient_descent(X, y, params, learning_rate, iterations):
-    m = len(y)
-    cost_history = np.zeros((iterations,1))
-
-    for i in range(iterations):
-        params = params - (learning_rate/m) * (X.T @ (sigmoid(X @ params) - y)) 
-        cost_history[i] = cost_function(X, y, params)
-
-    return (cost_history, params)
-
-def logistic_regression(X, y, learning_rate, iterations):
-    initial_params = np.zeros((X.shape[1], 1))
-    cost_history, params_optimal = gradient_descent(X, y, initial_params, learning_rate, iterations)
-    return params_optimal
-
-
 #task1.4
 
 # Determinar el grado del polinomio que mejor describe la nube de puntos
